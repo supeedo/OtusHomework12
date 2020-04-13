@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
 
-//@Listeners(ExecutionListener.class)
+@Listeners(ExecutionListener.class)
 public class SimpleTest extends BrowserFactory {
 
     protected static WebDriver driver;
