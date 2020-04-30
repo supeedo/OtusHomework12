@@ -1,4 +1,4 @@
-package factory;
+package configuration;
 
 import enums.BrowserName;
 import io.github.bonigarcia.wdm.WebDriverManager;

@@ -6,4 +6,7 @@ public interface Config extends org.aeonbits.owner.Config {
 
     @Key("url")
     String URL();
+
+    @Key("urlMarket")
+    String URL_MARKET();
 }

@@ -1,19 +1,20 @@
 package test;
 
 import configuration.Config;
-import factory.WebDriverFactory;
+import configuration.WebDriverFactory;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
-import test.ru.otus.SimpleTest;
+
+import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
 
     protected static WebDriver driver;
-    protected static Logger logger = LogManager.getLogger(SimpleTest.class);
+    protected static Logger logger = LogManager.getLogger(BaseTest.class);
     protected static Config cfg = ConfigFactory.create(Config.class);
 
 
@@ -23,6 +24,7 @@ public class BaseTest {
         logger.info("Got a browser name = {}", browserType);
         driver = WebDriverFactory.createNewDriver(browserType);
         logger.info("Driver set'up = {}", driver.getClass());
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
 
