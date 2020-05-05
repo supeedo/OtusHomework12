@@ -102,4 +102,3 @@ public class SimpleMarketTest {
         }
     }
 }
-// //*[@class='_2XviVqx9xN']/button[@data-tid='dc1632ca 1badb8e1']
