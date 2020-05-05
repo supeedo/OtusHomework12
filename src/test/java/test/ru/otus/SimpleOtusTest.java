@@ -6,7 +6,7 @@ import test.BaseTest;
 //@Listeners(ExecutionListener.class)
 public class SimpleOtusTest extends BaseTest {
 
-    @Test(description = "Check the opening of the page")
+   // @Test(description = "Check the opening of the page")
     public void openPage() {
         logger.info("Run test \"SimpleOtusTest\"");
         driver.navigate().to(cfg.URL());
