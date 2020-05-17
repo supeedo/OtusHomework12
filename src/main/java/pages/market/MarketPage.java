@@ -41,8 +41,6 @@ public class MarketPage extends PageHelpClass {
     }
 
     public MobilPhonePage useMenu() {
-        //catalogElectronic.click();
-       // mobilPhone.click();
         useElement(catalogElectronic, driver);
         useElement(mobilPhone, driver);
         return new MobilPhonePage(driver, wait);
