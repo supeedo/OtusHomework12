@@ -1,6 +1,5 @@
 package helpers;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -18,7 +17,7 @@ public abstract class PageHelpClass {
     }
 
     public static Boolean waitElementVisible( WebDriver driver, WebElement element ) {
-        return new WebDriverWait(driver, 10).until(ExpectedConditions.not(ExpectedConditions.visibilityOf(element)));
+        return new WebDriverWait(driver, 10, 1000).until(ExpectedConditions.not(ExpectedConditions.visibilityOf(element)));
     }
 
     public static Boolean waitElementNotVisible( WebDriver driver, WebElement element ) {
@@ -26,7 +25,7 @@ public abstract class PageHelpClass {
     }
 
     public static Boolean checkDispayedElement(WebDriver driver, WebElement webElement ) {
-        return new WebDriverWait(driver, 10).until(ExpectedConditions
+        return new WebDriverWait(driver, 10, 1000).until(ExpectedConditions
                     .visibilityOf(webElement)).isDisplayed();
     }
 
