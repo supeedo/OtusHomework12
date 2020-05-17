@@ -42,13 +42,13 @@ public class MobilPhonePage extends PageHelpClass {
     }
 
     public MobilPhonePage useMobileFilter() {
-        xiaomi.click();
-        zte.click();
+        useElement(xiaomi, driver);
+        useElement(zte, driver);
         return this;
     }
 
     public MobilPhonePage usePriceFilter() {
-        priceFilterButton.click();
+        useElement(priceFilterButton, driver);
         return this;
     }
 

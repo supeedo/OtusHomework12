@@ -29,4 +29,8 @@ public abstract class PageHelpClass {
         return new WebDriverWait(driver, 10).until(ExpectedConditions
                     .visibilityOf(webElement)).isDisplayed();
     }
+
+    public static void useElement(WebElement webElement, WebDriver driver){
+        new WebDriverWait(driver, 10, 2000).until(ExpectedConditions.visibilityOf(webElement)).click();
+    }
 }

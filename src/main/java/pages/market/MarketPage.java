@@ -1,6 +1,7 @@
 package pages.market;
 
 import helpers.PageHelpClass;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -31,13 +32,19 @@ public class MarketPage extends PageHelpClass {
     }
 
     public MarketPage waitClosePopupWindow() {
-        waitElementVisible(driver, popup);
+        try {
+            waitElementVisible(driver, popup);
+        }catch(TimeoutException e){
+            throw new IllegalArgumentException("Too long!");
+        }
         return this;
     }
 
     public MobilPhonePage useMenu() {
-        catalogElectronic.click();
-        mobilPhone.click();
+        //catalogElectronic.click();
+       // mobilPhone.click();
+        useElement(catalogElectronic, driver);
+        useElement(mobilPhone, driver);
         return new MobilPhonePage(driver, wait);
     }
 }
