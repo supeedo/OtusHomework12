@@ -36,21 +36,29 @@ public class SimpleMarketTest extends BaseTest {
 
     @Test(description = "Test YandexMarket page and filters on market")
     public void marketTest() {
+        logger.info("Переходим на сайт: {}", cfg.URL_MARKET());
         driver.navigate().to(cfg.URL_MARKET());
         mainPage = new MarketPage(driver, wait);
+        logger.info("Ждем закрытия инфо-окна, переходим в раздел Мобильных телефонов");
         mobilPhonePage = mainPage
                 .waitClosePopupWindow()
                 .useMenu();
+        logger.info("Фильтруем по производителю, по цене, добавляем телефоны к сравнению, переходим на страницу сравнения");
         cPage = mobilPhonePage
                 .useMobileFilter()
                 .usePriceFilter()
                 .useShowAllButton()
                 .takeAllMobile()
                 .useComparisonButton();
-        Assert.assertEquals(2, cPage.countCompareElements());  //  Ассерт количества проверяемых на странице
+        logger.info("Проверяем, что в сравнении 2 телефона");
+        Assert.assertEquals(2, cPage.countCompareElements());
+        logger.info("Отображаем все характеристики");
         cPage.changeCharasterMenuInAll();
+        logger.info("Проверяем, что отображается строка \"Операционная система\"");
         Assert.assertTrue(cPage.checkElement());
+        logger.info("Отображаем отличающиеся характеристики");
         cPage.changeCharasterMenuInVarious();
+        logger.info("Проверяем что строка \"Операционная система\" не отображается");
         Assert.assertFalse(cPage.checkElement());
     }
 }
