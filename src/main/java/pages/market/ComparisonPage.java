@@ -50,12 +50,13 @@ public class ComparisonPage extends PageHelpClass {
         return this;
     }
 
-    public boolean checkElement () {
-        boolean flag = false;
-        try {
-             flag = checkDispayedElement(driver, operationSystem);
-        }catch (TimeoutException e){}
-        return  flag;
+    public ComparisonPage checkElementNotVisible() {
+        checkDispayedElementNotVisible(driver, operationSystem);
+        return this;
+    }
+    public ComparisonPage checkElementVisible() {
+        checkDispayedElement(driver, operationSystem);
+        return this;
     }
 
 }

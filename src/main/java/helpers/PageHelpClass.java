@@ -17,19 +17,24 @@ public abstract class PageHelpClass {
     }
 
     public static Boolean waitElementVisible( WebDriver driver, WebElement element ) {
-        return new WebDriverWait(driver, 10, 1000).until(ExpectedConditions.not(ExpectedConditions.visibilityOf(element)));
+        return new WebDriverWait(driver, 50, 2000).until(ExpectedConditions.not(ExpectedConditions.visibilityOf(element)));
     }
 
     public static Boolean waitElementNotVisible( WebDriver driver, WebElement element ) {
-        return new WebDriverWait(driver, 10).until(ExpectedConditions.not(ExpectedConditions.invisibilityOf(element)));
+        return new WebDriverWait(driver, 50, 2000).until(ExpectedConditions.not(ExpectedConditions.invisibilityOf(element)));
     }
 
-    public static Boolean checkDispayedElement(WebDriver driver, WebElement webElement ) {
-        return new WebDriverWait(driver, 10, 1000).until(ExpectedConditions
-                    .visibilityOf(webElement)).isDisplayed();
+    public static Boolean checkDispayedElement( WebDriver driver, WebElement webElement ) {
+        return new WebDriverWait(driver, 50).until(ExpectedConditions
+                .visibilityOf(webElement)).isDisplayed();
     }
 
-    public static void useElement(WebElement webElement, WebDriver driver){
-        new WebDriverWait(driver, 10, 2000).until(ExpectedConditions.visibilityOf(webElement)).click();
+    public static void checkDispayedElementNotVisible( WebDriver driver, WebElement webElement ) {
+        new WebDriverWait(driver, 50).until(ExpectedConditions.not(ExpectedConditions.
+                visibilityOf(webElement)));
+    }
+
+    public static void useElement( WebElement webElement, WebDriver driver ) {
+        new WebDriverWait(driver, 50).until(ExpectedConditions.visibilityOf(webElement)).click();
     }
 }

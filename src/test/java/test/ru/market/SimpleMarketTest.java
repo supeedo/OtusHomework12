@@ -1,7 +1,5 @@
 package test.ru.market;
 
-import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.market.ComparisonPage;
@@ -55,10 +53,10 @@ public class SimpleMarketTest extends BaseTest {
         logger.info("Отображаем все характеристики");
         cPage.changeCharasterMenuInAll();
         logger.info("Проверяем, что отображается строка \"Операционная система\"");
-        Assert.assertTrue(cPage.checkElement());
+        cPage.checkElementVisible();
         logger.info("Отображаем отличающиеся характеристики");
         cPage.changeCharasterMenuInVarious();
         logger.info("Проверяем что строка \"Операционная система\" не отображается");
-        Assert.assertFalse(cPage.checkElement());
+        cPage.checkElementNotVisible();
     }
 }

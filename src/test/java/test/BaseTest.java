@@ -31,11 +31,11 @@ public class BaseTest {
         driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
         driver.manage().timeouts().setScriptTimeout(15, TimeUnit.SECONDS);
         driver.manage().window().maximize();
-        wait = new WebDriverWait(driver, 10, 2000);
+        wait = new WebDriverWait(driver, 10, 5000);
     }
 
 
-    @AfterClass
+   // @AfterClass
     protected void setDown() {
         if (driver != null) {
             driver.quit();
