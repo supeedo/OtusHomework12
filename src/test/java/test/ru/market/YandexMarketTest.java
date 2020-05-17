@@ -3,7 +3,7 @@ package test.ru.market;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.market.ComparisonPage;
-import pages.market.MarketPage;
+import pages.market.MarketMainPage;
 import pages.market.MobilPhonePage;
 import test.BaseTest;
 
@@ -27,36 +27,36 @@ import test.BaseTest;
  * - Нажать на опцию "различающиеся характеристики"
  * -- Проверить, что позиция "Операционная система" не отображается в списке характеристик
  */
-public class SimpleMarketTest extends BaseTest {
-    MarketPage mainPage;
-    MobilPhonePage mobilPhonePage;
-    ComparisonPage cPage;
+public class YandexMarketTest extends BaseTest {
+    private MarketMainPage mainPage;
+    private MobilPhonePage mobilPhonePage;
+    private ComparisonPage comparePage;
 
     @Test(description = "Test YandexMarket page and filters on market")
     public void marketTest() {
         logger.info("Переходим на сайт: {}", cfg.URL_MARKET());
         driver.navigate().to(cfg.URL_MARKET());
-        mainPage = new MarketPage(driver, wait);
+        mainPage = new MarketMainPage(driver, wait);
         logger.info("Ждем закрытия инфо-окна, переходим в раздел Мобильных телефонов");
         mobilPhonePage = mainPage
                 .waitClosePopupWindow()
                 .useMenu();
         logger.info("Фильтруем по производителю, по цене, добавляем телефоны к сравнению, переходим на страницу сравнения");
-        cPage = mobilPhonePage
+        comparePage = mobilPhonePage
                 .useMobileFilter()
                 .usePriceFilter()
                 .useShowAllButton()
                 .takeAllMobile()
                 .useComparisonButton();
         logger.info("Проверяем, что в сравнении 2 телефона");
-        Assert.assertEquals(2, cPage.countCompareElements());
+        Assert.assertEquals(2, comparePage.countCompareElements());
         logger.info("Отображаем все характеристики");
-        cPage.changeCharasterMenuInAll();
+        comparePage.changeCharasterMenuInAll();
         logger.info("Проверяем, что отображается строка \"Операционная система\"");
-        cPage.checkElementVisible();
+        comparePage.checkElementVisible();
         logger.info("Отображаем отличающиеся характеристики");
-        cPage.changeCharasterMenuInVarious();
+        comparePage.changeCharasterMenuInVarious();
         logger.info("Проверяем что строка \"Операционная система\" не отображается");
-        cPage.checkElementNotVisible();
+        comparePage.checkElementNotVisible();
     }
 }

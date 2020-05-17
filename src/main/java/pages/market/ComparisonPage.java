@@ -1,7 +1,6 @@
 package pages.market;
 
-import helpers.PageHelpClass;
-import org.openqa.selenium.TimeoutException;
+import helpers.WaitersHelpClass;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
@@ -11,22 +10,22 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-public class ComparisonPage extends PageHelpClass {
-    WebDriver driver;
-    WebDriverWait wait;
+public class ComparisonPage extends WaitersHelpClass {
+    private WebDriver driver;
+    private WebDriverWait wait;
 
-    private final String compareElementsCSS = "div[class^=n-compare-cell][data-bem]";
-    private final String allCharasterCSS = "span[class = \"link n-compare-show-controls__all\"][role=button] .link__inner";
-    private final String variousCharasterCSS = "span[class = \"link n-compare-show-controls__diff\"][role=button] .link__inner";
-    private final String operationSystemXpatch = "//div[text()=\"Операционная система\"]";
+    private final String COMPARE_ELEMENT_CSS = "div[class^=n-compare-cell][data-bem]";
+    private final String ALL_CHARACTER_CSS = "span[class = \"link n-compare-show-controls__all\"][role=button] .link__inner";
+    private final String VARIOUS_CHARACTER_CSS = "span[class = \"link n-compare-show-controls__diff\"][role=button] .link__inner";
+    private final String OPERATION_SYSTEM_XPATCH = "//div[text()=\"Операционная система\"]";
 
-    @FindAll(@FindBy(css = compareElementsCSS))
+    @FindAll(@FindBy(css = COMPARE_ELEMENT_CSS))
     private List<WebElement> compareElements;
-    @FindBy(css = allCharasterCSS)
+    @FindBy(css = ALL_CHARACTER_CSS)
     private WebElement allChataster;
-    @FindBy(css = variousCharasterCSS)
+    @FindBy(css = VARIOUS_CHARACTER_CSS)
     private WebElement variousCharaster;
-    @FindBy(xpath = operationSystemXpatch)
+    @FindBy(xpath = OPERATION_SYSTEM_XPATCH)
     private WebElement operationSystem;
 
 

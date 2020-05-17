@@ -1,11 +1,13 @@
 package helpers;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public abstract class PageHelpClass {
+public abstract class WaitersHelpClass {
+
     public String getNameSmartphone( String json ) {
         String tempList[] = json.split(":");
         return getClearName(tempList[3]);
@@ -17,24 +19,28 @@ public abstract class PageHelpClass {
     }
 
     public static Boolean waitElementVisible( WebDriver driver, WebElement element ) {
-        return new WebDriverWait(driver, 50, 2000).until(ExpectedConditions.not(ExpectedConditions.visibilityOf(element)));
+        return new WebDriverWait(driver, 15, 2000).until(ExpectedConditions.not(ExpectedConditions.visibilityOf(element)));
     }
 
     public static Boolean waitElementNotVisible( WebDriver driver, WebElement element ) {
-        return new WebDriverWait(driver, 50, 2000).until(ExpectedConditions.not(ExpectedConditions.invisibilityOf(element)));
+        return new WebDriverWait(driver, 15, 2000).until(ExpectedConditions.not(ExpectedConditions.invisibilityOf(element)));
     }
 
     public static Boolean checkDispayedElement( WebDriver driver, WebElement webElement ) {
-        return new WebDriverWait(driver, 50).until(ExpectedConditions
+        return new WebDriverWait(driver, 15).until(ExpectedConditions
                 .visibilityOf(webElement)).isDisplayed();
     }
 
     public static void checkDispayedElementNotVisible( WebDriver driver, WebElement webElement ) {
-        new WebDriverWait(driver, 50).until(ExpectedConditions.not(ExpectedConditions.
+        new WebDriverWait(driver, 15).until(ExpectedConditions.not(ExpectedConditions.
                 visibilityOf(webElement)));
     }
 
     public static void useElement( WebElement webElement, WebDriver driver ) {
-        new WebDriverWait(driver, 50).until(ExpectedConditions.visibilityOf(webElement)).click();
+        new WebDriverWait(driver, 15).until(ExpectedConditions.visibilityOf(webElement)).click();
+    }
+
+    public static void useUniversalElement( String css, WebDriver driver ) {
+        new WebDriverWait(driver, 15).until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector(css)))).click();
     }
 }

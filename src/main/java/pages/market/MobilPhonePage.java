@@ -1,6 +1,6 @@
 package pages.market;
 
-import helpers.PageHelpClass;
+import helpers.WaitersHelpClass;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
@@ -11,28 +11,28 @@ import org.testng.Assert;
 
 import java.util.List;
 
-public class MobilPhonePage extends PageHelpClass {
-    WebDriver driver;
-    WebDriverWait wait;
+public class MobilPhonePage extends WaitersHelpClass {
+    private WebDriver driver;
+    private WebDriverWait wait;
 
-    private final String xiaomiXpatch = "//input[@id = \"7893318_7701962\"]/..";
-    private final String zteXpatch = "//input[@id=\"7893318_1007740\"]/..";
-    private final String priceFilterButtonXpatch = "//a[text()=\"по цене\"]";
-    private final String showAllButtonXpatch = "//a[@role='button' and contains(@class,'button button_size_m')]";
-    private final String allMobilePhoneXpatch = "//div[contains(@data-bem,\"n-user-lists_type_compare\")]/.";
-    private final String inComparisonButtonCSS = "a[class^=button][href$=rmmbr]";
+    private final String XIAOMI_XPATCH = "//input[@id = \"7893318_7701962\"]/..";
+    private final String ZTE_XPATCH = "//input[@id=\"7893318_1007740\"]/..";
+    private final String PRICE_FILTER_BUTTON_XPATCH = "//a[text()=\"по цене\"]";
+    private final String BUTTON_SHOWALL_XPATCH = "//a[@role='button' and contains(@class,'button button_size_m')]";
+    private final String ALL_MOBILE_ELEMENTS_XPATCH = "//div[contains(@data-bem,\"n-user-lists_type_compare\")]/.";
+    private final String COMPARISON_BUTTON_CSS = "a[class^=button][href$=rmmbr]";
 
-    @FindBy(xpath = xiaomiXpatch)
+    @FindBy(xpath = XIAOMI_XPATCH)
     private WebElement xiaomi;
-    @FindBy(xpath = zteXpatch)
+    @FindBy(xpath = ZTE_XPATCH)
     private WebElement zte;
-    @FindBy(xpath = priceFilterButtonXpatch)
+    @FindBy(xpath = PRICE_FILTER_BUTTON_XPATCH)
     private WebElement priceFilterButton;
-    @FindBy(xpath = showAllButtonXpatch)
+    @FindBy(xpath = BUTTON_SHOWALL_XPATCH)
     private WebElement showAllButton;
-    @FindBy(css = inComparisonButtonCSS)
+    @FindBy(css = COMPARISON_BUTTON_CSS)
     private WebElement inComparisonButton;
-    @FindAll(@FindBy(xpath = allMobilePhoneXpatch))
+    @FindAll(@FindBy(xpath = ALL_MOBILE_ELEMENTS_XPATCH))
     private List<WebElement> allMobilePhone;
 
     public MobilPhonePage( WebDriver driver, WebDriverWait wait ) {
@@ -44,6 +44,11 @@ public class MobilPhonePage extends PageHelpClass {
     public MobilPhonePage useMobileFilter() {
         useElement(xiaomi, driver);
         useElement(zte, driver);
+        return this;
+    }
+
+    public MobilPhonePage someFilters(String brandName) {
+        useElement("input[name$=\""+brandName+"\"]", driver); //  ??
         return this;
     }
 
