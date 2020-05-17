@@ -26,17 +26,18 @@ public class BaseTest {
     protected void setUp() {
         String browserType = System.getProperty("browser");
         logger.info("Got a browser name = {}", browserType);
-        driver = WebDriverFactory.createNewDriver(browserType);
+        if(browserType == null) driver = WebDriverFactory.createNewDriver("chrome");
+        else driver = WebDriverFactory.createNewDriver(browserType);
         logger.info("Driver set'up = {}", driver.getClass());
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
-        driver.manage().timeouts().setScriptTimeout(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
+        driver.manage().timeouts().setScriptTimeout(15, TimeUnit.SECONDS);
         driver.manage().window().maximize();
-       // wait = new WebDriverWait(driver, 100, 1000);
+        wait = new WebDriverWait(driver, 10);
     }
 
 
-  //  @AfterClass
+    @AfterClass
     protected void setDown() {
         if (driver != null) {
             driver.quit();
