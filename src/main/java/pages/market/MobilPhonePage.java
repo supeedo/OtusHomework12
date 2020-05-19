@@ -36,13 +36,14 @@ public class MobilPhonePage extends WaitersHelpClass {
     @FindBy(css = COMPARISON_BUTTON_CSS)
     private WebElement inComparisonButton;
     @FindAll(@FindBy(xpath = ALL_MOBILE_ELEMENTS_XPATCH))
-    private List<WebElement> allMobilePhone;
+    private List<WebElement> allMobilePhoneList;
 
     public MobilPhonePage( WebDriver driver, WebDriverWait wait ) {
         this.driver = driver;
         this.wait = wait;
         PageFactory.initElements(driver, this);
     }
+
 
     public MobilPhonePage selectMobileFilter1() {
         logger.info("Фильтруем по производителю 1");
@@ -79,12 +80,12 @@ public class MobilPhonePage extends WaitersHelpClass {
     public MobilPhonePage additToComparation( String brandName ) {
         logger.info("Добавляем первый элемент в сравнение по бренду");
         int count = 0;
-        for (int i = 0; i < allMobilePhone.size(); i++) {
+        for (int i = 0; i < allMobilePhoneList.size(); i++) {
             if (count == 1) {
                 break;
-            } else if (getNameSmartphone(allMobilePhone.get(i).getAttribute("data-bem")).contains(brandName)
+            } else if (getNameSmartphone(allMobilePhoneList.get(i).getAttribute("data-bem")).contains(brandName)
                     && count == 0) {
-                allMobilePhone.get(i).click();
+                allMobilePhoneList.get(i).click();
                 count++;
             }
         }

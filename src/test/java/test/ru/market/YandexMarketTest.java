@@ -44,7 +44,8 @@ public class YandexMarketTest extends BaseTest {
 
         mobilPhonePage = mainPage
                 .waitClosePopupWindow()
-                .useMenu();
+                .clickByButtonCatalog()
+                .clickByButtonTelephone();
         comparePage = mobilPhonePage
                 .selectMobileFilter1()
                 .selectMobileFilter2()

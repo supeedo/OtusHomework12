@@ -43,9 +43,13 @@ public class MarketMainPage extends WaitersHelpClass {
         return this;
     }
 
-    public MobilPhonePage useMenu() {
-        logger.info("Переходим в раздел Мобильных телефонов");
+    public MarketMainPage clickByButtonCatalog() {
+        logger.info("Переходим в раздел \"Каталог электроники\"");
         useElement(catalogElectronic, driver);
+        return this;
+    }
+    public MobilPhonePage clickByButtonTelephone() {
+        logger.info("Переходим в раздел \"Мобильные телефоны\"");
         useElement(mobilPhone, driver);
         return new MobilPhonePage(driver, wait);
     }
