@@ -12,7 +12,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 public class MobilPhonePage extends WaitersHelpClass {
     private WebDriver driver;
@@ -25,7 +24,6 @@ public class MobilPhonePage extends WaitersHelpClass {
     private final String BUTTON_SHOWALL_XPATCH = "//a[@role='button' and contains(@class,'button button_size_m')]";
     private final String ALL_MOBILE_ELEMENTS_XPATCH = "//div[contains(@data-bem,\"n-user-lists_type_compare\")]/."; // //div[@class='_1sHDZU491h _1rDffWmsUY cia-vs cia-cs']/.
     private final String COMPARISON_BUTTON_CSS = "a[class^=button][href$=rmmbr]";
-    private final String BRAND_NAME_FILTERS_XPATCH = "//label[@class  = '_2IwbFpEZn7 _1e7iX1B2oW']/input//..";
 
     @FindBy(xpath = XIAOMI_XPATCH)
     private WebElement xiaomi;
@@ -39,8 +37,6 @@ public class MobilPhonePage extends WaitersHelpClass {
     private WebElement inComparisonButton;
     @FindAll(@FindBy(xpath = ALL_MOBILE_ELEMENTS_XPATCH))
     private List<WebElement> allMobilePhone;
-    @FindAll(@FindBy(xpath = BRAND_NAME_FILTERS_XPATCH))
-    private List<WebElement> allBrandFilters;
 
     public MobilPhonePage( WebDriver driver, WebDriverWait wait ) {
         this.driver = driver;
@@ -53,6 +49,7 @@ public class MobilPhonePage extends WaitersHelpClass {
         useElement(xiaomi, driver);
         return this;
     }
+
     public MobilPhonePage selectMobileFilter2() {
         logger.info("Фильтруем по производителю 2");
         useElement(zte, driver);
@@ -79,27 +76,26 @@ public class MobilPhonePage extends WaitersHelpClass {
         return this;
     }
 
-    public MobilPhonePage takeAllMobile() {
-        logger.info("Сравниваем отобразившиеся телефоны, добавляя первые в сравнение");
-        int countXiaomi = 0;
-        int countZTE = 0;
+    public MobilPhonePage additToComparation( String brandName ) {
+        logger.info("Добавляем первый элемент в сравнение по бренду");
+        int count = 0;
         for (int i = 0; i < allMobilePhone.size(); i++) {
-            if (countXiaomi == 1 && countZTE == 1) {
+            if (count == 1) {
                 break;
-            } else if (getNameSmartphone(allMobilePhone.get(i).getAttribute("data-bem")).contains("Xiaomi")
-                    && countXiaomi == 0) {
+            } else if (getNameSmartphone(allMobilePhone.get(i).getAttribute("data-bem")).contains(brandName)
+                    && count == 0) {
                 allMobilePhone.get(i).click();
-                Assert.assertTrue(driver.findElement(
-                        By.xpath("//div[contains(text(), \"добавлен к сравнению\") and contains(text(), \"Xiaomi\")]")).isDisplayed());
-                countXiaomi++;
-            } else if (getNameSmartphone(allMobilePhone.get(i).getAttribute("data-bem")).contains("ZTE")
-                    && countZTE == 0) {
-                allMobilePhone.get(i).click();
-                Assert.assertTrue(driver.findElement(
-                        By.xpath("//div[contains(text(), \"добавлен к сравнению\") and contains(text(), \"ZTE\")]")).isDisplayed());
-                countZTE++;
+                count++;
             }
         }
+        return this;
+    }
+
+    public MobilPhonePage checkComparringDisplay( String brandName ) {
+        logger.info("Проверяем что отобразилась плашка \"Добавлено к сравнению\"");
+        Assert.assertTrue(driver.findElement(
+                By.xpath("//div[contains(text(), \"добавлен к сравнению\") and contains(text(), \"" + brandName + "\")]"))
+                .isDisplayed());
         return this;
     }
 

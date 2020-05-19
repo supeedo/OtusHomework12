@@ -42,7 +42,6 @@ public class ComparisonPage extends WaitersHelpClass {
     public ComparisonPage assertCountCompareElements(int count) {
         logger.info("Проверяем, что в сравнении 2 телефона");
         Assert.assertEquals(count, compareElements.size());
-       // return compareElements.size();
         return this;
     }
 

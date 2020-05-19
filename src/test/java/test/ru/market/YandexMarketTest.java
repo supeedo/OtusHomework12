@@ -50,7 +50,10 @@ public class YandexMarketTest extends BaseTest {
                 .selectMobileFilter2()
                 .usePriceFilter()
                 .useShowAllButton()
-                .takeAllMobile()
+                .additToComparation("ZTE")
+                .checkComparringDisplay("ZTE")
+                .additToComparation("Xiaomi")
+                .checkComparringDisplay("Xiaomi")
                 .useComparisonButton();
         comparePage
                 .assertCountCompareElements(2)

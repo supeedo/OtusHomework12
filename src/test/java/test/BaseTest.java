@@ -35,7 +35,7 @@ public class BaseTest {
     }
 
 
-   // @AfterClass
+    @AfterClass
     protected void setDown() {
         if (driver != null) {
             driver.quit();
