@@ -1,5 +1,7 @@
 package test.ru.market;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.market.ComparisonPage;
@@ -31,32 +33,30 @@ public class YandexMarketTest extends BaseTest {
     private MarketMainPage mainPage;
     private MobilPhonePage mobilPhonePage;
     private ComparisonPage comparePage;
+    protected static Logger logger = LogManager.getLogger(YandexMarketTest.class);
 
     @Test(description = "Test YandexMarket page and filters on market")
     public void marketTest() {
         logger.info("Переходим на сайт: {}", cfg.URL_MARKET());
         driver.navigate().to(cfg.URL_MARKET());
+
         mainPage = new MarketMainPage(driver, wait);
-        logger.info("Ждем закрытия инфо-окна, переходим в раздел Мобильных телефонов");
+
         mobilPhonePage = mainPage
                 .waitClosePopupWindow()
                 .useMenu();
-        logger.info("Фильтруем по производителю, по цене, добавляем телефоны к сравнению, переходим на страницу сравнения");
         comparePage = mobilPhonePage
-                .useMobileFilter()
+                .selectMobileFilter1()
+                .selectMobileFilter2()
                 .usePriceFilter()
                 .useShowAllButton()
                 .takeAllMobile()
                 .useComparisonButton();
-        logger.info("Проверяем, что в сравнении 2 телефона");
-        Assert.assertEquals(2, comparePage.countCompareElements());
-        logger.info("Отображаем все характеристики");
-        comparePage.changeCharasterMenuInAll();
-        logger.info("Проверяем, что отображается строка \"Операционная система\"");
-        comparePage.checkElementVisible();
-        logger.info("Отображаем отличающиеся характеристики");
-        comparePage.changeCharasterMenuInVarious();
-        logger.info("Проверяем что строка \"Операционная система\" не отображается");
-        comparePage.checkElementNotVisible();
+        comparePage
+                .assertCountCompareElements(2)
+                .changeCharasterMenuInAll()
+                .checkElementVisible()
+                .changeCharasterMenuInVarious()
+                .checkElementNotVisible();
     }
 }

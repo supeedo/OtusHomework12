@@ -39,8 +39,4 @@ public abstract class WaitersHelpClass {
     public static void useElement( WebElement webElement, WebDriver driver ) {
         new WebDriverWait(driver, 15).until(ExpectedConditions.visibilityOf(webElement)).click();
     }
-
-    public static void useUniversalElement( String css, WebDriver driver ) {
-        new WebDriverWait(driver, 15).until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector(css)))).click();
-    }
 }
