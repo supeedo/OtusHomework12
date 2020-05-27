@@ -33,13 +33,12 @@ public class ComparisonPage extends WaitersHelpClass {
     private WebElement operationSystem;
 
 
-    public ComparisonPage( WebDriver driver, WebDriverWait wait ) {
+    public ComparisonPage( WebDriver driver ) {
         this.driver = driver;
-        this.wait = wait;
         PageFactory.initElements(driver, this);
     }
 
-    public ComparisonPage assertCountCompareElements(int count) {
+    public ComparisonPage assertCountCompareElements( int count ) {
         logger.info("Проверяем, что в сравнении 2 телефона");
         Assert.assertEquals(count, compareElements.size());
         return this;
@@ -62,6 +61,7 @@ public class ComparisonPage extends WaitersHelpClass {
         checkDispayedElementNotVisible(driver, operationSystem);
         return this;
     }
+
     public ComparisonPage checkElementVisible() {
 
         logger.info("Проверяем, что отображается строка \"Операционная система\"");

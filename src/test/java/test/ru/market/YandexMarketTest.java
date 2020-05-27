@@ -29,6 +29,8 @@ import test.BaseTest;
  * - Нажать на опцию "различающиеся характеристики"
  * -- Проверить, что позиция "Операционная система" не отображается в списке характеристик
  */
+
+//@Listeners(ExecutionListener.class)
 public class YandexMarketTest extends BaseTest {
     private MarketMainPage mainPage;
     private MobilPhonePage mobilPhonePage;
@@ -40,7 +42,7 @@ public class YandexMarketTest extends BaseTest {
         logger.info("Переходим на сайт: {}", cfg.URL_MARKET());
         driver.navigate().to(cfg.URL_MARKET());
 
-        mainPage = new MarketMainPage(driver, wait);
+        mainPage = new MarketMainPage(driver);
 
         mobilPhonePage = mainPage
                 .waitClosePopupWindow()

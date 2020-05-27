@@ -12,7 +12,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class MarketMainPage extends WaitersHelpClass {
     private WebDriver driver;
-    private WebDriverWait wait;
     protected static Logger logger = LogManager.getLogger(MarketMainPage.class);
 
 
@@ -27,9 +26,8 @@ public class MarketMainPage extends WaitersHelpClass {
     @FindBy(xpath = MOBILE_PHONE_XPATCH)
     private WebElement mobilPhone;
 
-    public MarketMainPage( WebDriver driver, WebDriverWait wait) {
+    public MarketMainPage( WebDriver driver) {
         this.driver = driver;
-        this.wait = wait;
         PageFactory.initElements(driver, this);
     }
 
@@ -51,6 +49,6 @@ public class MarketMainPage extends WaitersHelpClass {
     public MobilPhonePage clickByButtonTelephone() {
         logger.info("Переходим в раздел \"Мобильные телефоны\"");
         useElement(mobilPhone, driver);
-        return new MobilPhonePage(driver, wait);
+        return new MobilPhonePage(driver);
     }
 }

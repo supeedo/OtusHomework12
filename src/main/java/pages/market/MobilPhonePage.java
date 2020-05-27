@@ -15,7 +15,6 @@ import java.util.List;
 
 public class MobilPhonePage extends WaitersHelpClass {
     private WebDriver driver;
-    private WebDriverWait wait;
     protected static Logger logger = LogManager.getLogger(MobilPhonePage.class);
 
     private final String XIAOMI_XPATCH = "//input[@id = \"7893318_7701962\"]/..";
@@ -38,9 +37,8 @@ public class MobilPhonePage extends WaitersHelpClass {
     @FindAll(@FindBy(xpath = ALL_MOBILE_ELEMENTS_XPATCH))
     private List<WebElement> allMobilePhoneList;
 
-    public MobilPhonePage( WebDriver driver, WebDriverWait wait ) {
+    public MobilPhonePage( WebDriver driver ) {
         this.driver = driver;
-        this.wait = wait;
         PageFactory.initElements(driver, this);
     }
 
@@ -67,7 +65,7 @@ public class MobilPhonePage extends WaitersHelpClass {
         logger.info("Отображаем все отфильтрованные телефоны через кнопку \"Показать все\"");
         while (true) {
             try {
-                wait.until(ExpectedConditions
+             new WebDriverWait(driver, 15).until(ExpectedConditions
                         .visibilityOf(showAllButton)).click();
             } catch (TimeoutException e) {
                 break;
@@ -103,6 +101,6 @@ public class MobilPhonePage extends WaitersHelpClass {
     public ComparisonPage useComparisonButton() {
         logger.info("Переходим на страницу сравнения");
         inComparisonButton.click();
-        return new ComparisonPage(driver, wait);
+        return new ComparisonPage(driver);
     }
 }
