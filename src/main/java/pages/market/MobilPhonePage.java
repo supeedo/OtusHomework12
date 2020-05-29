@@ -1,6 +1,6 @@
 package pages.market;
 
-import helpers.WaitersHelpClass;
+import utils.WaitersHelpClass;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
@@ -94,7 +94,7 @@ public class MobilPhonePage extends WaitersHelpClass {
         logger.info("Проверяем что отобразилась плашка \"Добавлено к сравнению\"");
         Assert.assertTrue(driver.findElement(
                 By.xpath("//div[contains(text(), \"добавлен к сравнению\") and contains(text(), \"" + brandName + "\")]"))
-                .isDisplayed());
+                .isDisplayed(), "Элемент не отобразился!");
         return this;
     }
 
