@@ -3,6 +3,7 @@ package test.ru.market;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.market.ComparisonPage;
 import pages.market.MarketMainPage;
@@ -13,7 +14,7 @@ import test.BaseTest;
  * Домашнее задание
  * Написать автотест для каталога Яндекс.Маркет
  * Реализуйте автоматический тест, используя Java + Selenium
- *
+ * <p>
  * Шаги теста:
  * - Открыть в Chrome сайт Яндекс.Маркет - раздел "Мобильные телефоны"
  * - Отфильтровать список товаров: RedMi и Xiaomi
@@ -35,20 +36,23 @@ public class YandexMarketTest extends BaseTest {
     private MarketMainPage mainPage;
     private MobilPhonePage mobilPhonePage;
     private ComparisonPage comparePage;
-    protected static Logger logger = LogManager.getLogger(YandexMarketTest.class);
+
+    @BeforeMethod
+    public void setUpMethod() {
+        mainPage = new MarketMainPage(driver);
+        mobilPhonePage = new MobilPhonePage(driver);
+        comparePage = new ComparisonPage(driver);
+    }
 
     @Test(description = "Test YandexMarket page and filters on market")
     public void marketTest() {
-        logger.info("Переходим на сайт: {}", cfg.URL_MARKET());
-        driver.navigate().to(cfg.URL_MARKET());
 
-        mainPage = new MarketMainPage(driver);
 
-        mobilPhonePage = mainPage
+        mainPage
                 .waitClosePopupWindow()
                 .clickByButtonCatalog()
                 .clickByButtonTelephone();
-        comparePage = mobilPhonePage
+        mobilPhonePage
                 .selectMobileFilter1()
                 .selectMobileFilter2()
                 .usePriceFilter()
