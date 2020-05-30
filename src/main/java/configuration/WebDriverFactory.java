@@ -18,7 +18,7 @@ public class WebDriverFactory {
 
     public WebDriver createNewDriver( String browserName, MutableCapabilities options ) {
         WebDriver wb = null;
-        browserName = browserName.toUpperCase();
+        browserName = browserName.toLowerCase();
 
         if ("firefox".equals(browserName))
             wb = getFFInstance(new FirefoxOptions().merge(options));

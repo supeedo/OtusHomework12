@@ -28,7 +28,7 @@ import test.PrepareTest;
  * -- Проверить, что позиция "Операционная система" не отображается в списке характеристик
  */
 
-//@Listeners(ExecutionListener.class)
+
 public class YandexMarketTest extends PrepareTest {
     private MarketMainPage mainPage;
     private MobilPhonePage mobilPhonePage;
