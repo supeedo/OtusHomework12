@@ -34,7 +34,7 @@ public class MobilPhonePage extends WaitersHelpClass {
     private WebElement showAllButton;
     @FindBy(css = COMPARISON_BUTTON_CSS)
     private WebElement inComparisonButton;
-    @FindAll(@FindBy(xpath = ALL_MOBILE_ELEMENTS_XPATCH))
+    @FindBy(xpath = ALL_MOBILE_ELEMENTS_XPATCH)
     private List<WebElement> allMobilePhoneList;
 
     public MobilPhonePage( WebDriver driver ) {

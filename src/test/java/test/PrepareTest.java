@@ -11,10 +11,11 @@ import org.testng.annotations.BeforeMethod;
 
 import java.util.concurrent.TimeUnit;
 
-public class BaseTest {
+public class PrepareTest {
 
+    WebDriverFactory driverFactory = new WebDriverFactory();
     protected WebDriver driver;
-    protected Logger logger = LogManager.getLogger(BaseTest.class);
+    protected Logger logger = LogManager.getLogger(PrepareTest.class);
     protected Config cfg = ConfigFactory.create(Config.class);
 
     @BeforeMethod
@@ -22,8 +23,8 @@ public class BaseTest {
         String browserType = System.getProperty("browser");
         logger.info("Got a browser name = {}", browserType);
 
-        if (browserType == null) driver = WebDriverFactory.createNewDriver("chrome");
-        else driver = WebDriverFactory.createNewDriver(browserType);
+        if (browserType == null) driver = driverFactory.createNewDriver("chrome");
+        else driver = driverFactory.createNewDriver(browserType);
 
         logger.info("Driver set'up = {}", driver.getClass());
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
@@ -33,7 +34,6 @@ public class BaseTest {
         logger.info("Переходим на сайт: {}", cfg.URL_MARKET());
         driver.navigate().to(cfg.URL_MARKET());
     }
-
 
     @AfterClass
     protected void setDown() {

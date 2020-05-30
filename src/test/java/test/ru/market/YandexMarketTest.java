@@ -1,14 +1,11 @@
 package test.ru.market;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.market.ComparisonPage;
 import pages.market.MarketMainPage;
 import pages.market.MobilPhonePage;
-import test.BaseTest;
+import test.PrepareTest;
 
 /**
  * Домашнее задание
@@ -32,7 +29,7 @@ import test.BaseTest;
  */
 
 //@Listeners(ExecutionListener.class)
-public class YandexMarketTest extends BaseTest {
+public class YandexMarketTest extends PrepareTest {
     private MarketMainPage mainPage;
     private MobilPhonePage mobilPhonePage;
     private ComparisonPage comparePage;
@@ -46,8 +43,6 @@ public class YandexMarketTest extends BaseTest {
 
     @Test(description = "Test YandexMarket page and filters on market")
     public void marketTest() {
-
-
         mainPage
                 .waitClosePopupWindow()
                 .clickByButtonCatalog()
