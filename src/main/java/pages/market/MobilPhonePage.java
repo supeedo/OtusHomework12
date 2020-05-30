@@ -14,6 +14,7 @@ import org.testng.Assert;
 import java.util.List;
 
 public class MobilPhonePage extends WaitersHelpClass {
+
     private WebDriver driver;
     protected static Logger logger = LogManager.getLogger(MobilPhonePage.class);
 
