@@ -1,13 +1,11 @@
 package test.ru.market;
 
-import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.market.ComparisonPage;
-import pages.market.MarketPage;
+import pages.market.MarketMainPage;
 import pages.market.MobilPhonePage;
-import test.BaseTest;
+import test.PrepareTest;
 
 /**
  * Домашнее задание
@@ -29,36 +27,41 @@ import test.BaseTest;
  * - Нажать на опцию "различающиеся характеристики"
  * -- Проверить, что позиция "Операционная система" не отображается в списке характеристик
  */
-public class SimpleMarketTest extends BaseTest {
-    MarketPage mainPage;
-    MobilPhonePage mobilPhonePage;
-    ComparisonPage cPage;
+
+
+public class YandexMarketTest extends PrepareTest {
+    private MarketMainPage mainPage;
+    private MobilPhonePage mobilPhonePage;
+    private ComparisonPage comparePage;
+
+    @BeforeMethod
+    public void setUpMethod() {
+        mainPage = new MarketMainPage(driver);
+        mobilPhonePage = new MobilPhonePage(driver);
+        comparePage = new ComparisonPage(driver);
+    }
 
     @Test(description = "Test YandexMarket page and filters on market")
     public void marketTest() {
-        logger.info("Переходим на сайт: {}", cfg.URL_MARKET());
-        driver.navigate().to(cfg.URL_MARKET());
-        mainPage = new MarketPage(driver, wait);
-        logger.info("Ждем закрытия инфо-окна, переходим в раздел Мобильных телефонов");
-        mobilPhonePage = mainPage
+        mainPage
                 .waitClosePopupWindow()
-                .useMenu();
-        logger.info("Фильтруем по производителю, по цене, добавляем телефоны к сравнению, переходим на страницу сравнения");
-        cPage = mobilPhonePage
-                .useMobileFilter()
+                .clickByButtonCatalog()
+                .clickByButtonTelephone();
+        mobilPhonePage
+                .selectMobileFilter1()
+                .selectMobileFilter2()
                 .usePriceFilter()
                 .useShowAllButton()
-                .takeAllMobile()
+                .additToComparation("ZTE")
+                .checkComparringDisplay("ZTE")
+                .additToComparation("Xiaomi")
+                .checkComparringDisplay("Xiaomi")
                 .useComparisonButton();
-        logger.info("Проверяем, что в сравнении 2 телефона");
-        Assert.assertEquals(2, cPage.countCompareElements());
-        logger.info("Отображаем все характеристики");
-        cPage.changeCharasterMenuInAll();
-        logger.info("Проверяем, что отображается строка \"Операционная система\"");
-        Assert.assertTrue(cPage.checkElement());
-        logger.info("Отображаем отличающиеся характеристики");
-        cPage.changeCharasterMenuInVarious();
-        logger.info("Проверяем что строка \"Операционная система\" не отображается");
-        Assert.assertFalse(cPage.checkElement());
+        comparePage
+                .assertCountCompareElements(2)
+                .changeCharasterMenuInAll()
+                .checkElementVisible()
+                .changeCharasterMenuInVarious()
+                .checkElementNotVisible();
     }
 }
