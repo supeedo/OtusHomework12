@@ -1,10 +1,9 @@
 package pages.market;
 
-import helpers.WaitersHelpClass;
+import utils.WaitersHelpClass;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -14,8 +13,8 @@ import org.testng.Assert;
 import java.util.List;
 
 public class MobilPhonePage extends WaitersHelpClass {
+
     private WebDriver driver;
-    private WebDriverWait wait;
     protected static Logger logger = LogManager.getLogger(MobilPhonePage.class);
 
     private final String XIAOMI_XPATCH = "//input[@id = \"7893318_7701962\"]/..";
@@ -35,14 +34,14 @@ public class MobilPhonePage extends WaitersHelpClass {
     private WebElement showAllButton;
     @FindBy(css = COMPARISON_BUTTON_CSS)
     private WebElement inComparisonButton;
-    @FindAll(@FindBy(xpath = ALL_MOBILE_ELEMENTS_XPATCH))
-    private List<WebElement> allMobilePhone;
+    @FindBy(xpath = ALL_MOBILE_ELEMENTS_XPATCH)
+    private List<WebElement> allMobilePhoneList;
 
-    public MobilPhonePage( WebDriver driver, WebDriverWait wait ) {
+    public MobilPhonePage( WebDriver driver ) {
         this.driver = driver;
-        this.wait = wait;
         PageFactory.initElements(driver, this);
     }
+
 
     public MobilPhonePage selectMobileFilter1() {
         logger.info("Фильтруем по производителю 1");
@@ -66,7 +65,7 @@ public class MobilPhonePage extends WaitersHelpClass {
         logger.info("Отображаем все отфильтрованные телефоны через кнопку \"Показать все\"");
         while (true) {
             try {
-                wait.until(ExpectedConditions
+             new WebDriverWait(driver, 15).until(ExpectedConditions
                         .visibilityOf(showAllButton)).click();
             } catch (TimeoutException e) {
                 break;
@@ -79,12 +78,12 @@ public class MobilPhonePage extends WaitersHelpClass {
     public MobilPhonePage additToComparation( String brandName ) {
         logger.info("Добавляем первый элемент в сравнение по бренду");
         int count = 0;
-        for (int i = 0; i < allMobilePhone.size(); i++) {
+        for (int i = 0; i < allMobilePhoneList.size(); i++) {
             if (count == 1) {
                 break;
-            } else if (getNameSmartphone(allMobilePhone.get(i).getAttribute("data-bem")).contains(brandName)
+            } else if (getNameSmartphone(allMobilePhoneList.get(i).getAttribute("data-bem")).contains(brandName)
                     && count == 0) {
-                allMobilePhone.get(i).click();
+                allMobilePhoneList.get(i).click();
                 count++;
             }
         }
@@ -95,13 +94,13 @@ public class MobilPhonePage extends WaitersHelpClass {
         logger.info("Проверяем что отобразилась плашка \"Добавлено к сравнению\"");
         Assert.assertTrue(driver.findElement(
                 By.xpath("//div[contains(text(), \"добавлен к сравнению\") and contains(text(), \"" + brandName + "\")]"))
-                .isDisplayed());
+                .isDisplayed(), "Элемент не отобразился!");
         return this;
     }
 
     public ComparisonPage useComparisonButton() {
         logger.info("Переходим на страницу сравнения");
         inComparisonButton.click();
-        return new ComparisonPage(driver, wait);
+        return new ComparisonPage(driver);
     }
 }

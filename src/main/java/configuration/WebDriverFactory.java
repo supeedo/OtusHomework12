@@ -1,6 +1,5 @@
 package configuration;
 
-import enums.BrowserName;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
@@ -13,37 +12,36 @@ import org.openqa.selenium.opera.OperaOptions;
 
 public class WebDriverFactory {
 
-    public static WebDriver createNewDriver( String browserName ) {
+    public WebDriver createNewDriver( String browserName ) {
         return createNewDriver(browserName, new MutableCapabilities());
     }
 
-    public static WebDriver createNewDriver( String browserName, MutableCapabilities options ) {
+    public WebDriver createNewDriver( String browserName, MutableCapabilities options ) {
         WebDriver wb = null;
-        browserName = browserName.toUpperCase();
+        browserName = browserName.toLowerCase();
 
-        if (browserName.equals(BrowserName.FIREFOX.name()))
+        if ("firefox".equals(browserName))
             wb = getFFInstance(new FirefoxOptions().merge(options));
-        else if (browserName.equals(BrowserName.OPERA.name()))
+        else if ("opera".equals(browserName))
             wb = getOperaInstance(new OperaOptions().merge(options));
-        else if (browserName.equals(BrowserName.CHROME.name()))
+        else if ("chrome".equals(browserName))
             wb = getChromeInstance(new ChromeOptions().merge(options));
         else
             throw new IllegalArgumentException("This browser is not supported!");
-
         return wb;
     }
 
-    private static ChromeDriver getChromeInstance( ChromeOptions options ) {
+    private ChromeDriver getChromeInstance( ChromeOptions options ) {
         WebDriverManager.chromedriver().setup();
         return new ChromeDriver(options);
     }
 
-    private static FirefoxDriver getFFInstance( FirefoxOptions options ) {
+    private FirefoxDriver getFFInstance( FirefoxOptions options ) {
         WebDriverManager.firefoxdriver().setup();
         return new FirefoxDriver(options);
     }
 
-    private static OperaDriver getOperaInstance( OperaOptions options ) {
+    private OperaDriver getOperaInstance( OperaOptions options ) {
         WebDriverManager.operadriver().setup();
         return new OperaDriver(options);
     }

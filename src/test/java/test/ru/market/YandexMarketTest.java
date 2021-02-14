@@ -1,13 +1,11 @@
 package test.ru.market;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.market.ComparisonPage;
 import pages.market.MarketMainPage;
 import pages.market.MobilPhonePage;
-import test.BaseTest;
+import test.PrepareTest;
 
 /**
  * Домашнее задание
@@ -29,23 +27,27 @@ import test.BaseTest;
  * - Нажать на опцию "различающиеся характеристики"
  * -- Проверить, что позиция "Операционная система" не отображается в списке характеристик
  */
-public class YandexMarketTest extends BaseTest {
+
+
+public class YandexMarketTest extends PrepareTest {
     private MarketMainPage mainPage;
     private MobilPhonePage mobilPhonePage;
     private ComparisonPage comparePage;
-    protected static Logger logger = LogManager.getLogger(YandexMarketTest.class);
+
+    @BeforeMethod
+    public void setUpMethod() {
+        mainPage = new MarketMainPage(driver);
+        mobilPhonePage = new MobilPhonePage(driver);
+        comparePage = new ComparisonPage(driver);
+    }
 
     @Test(description = "Test YandexMarket page and filters on market")
     public void marketTest() {
-        logger.info("Переходим на сайт: {}", cfg.URL_MARKET());
-        driver.navigate().to(cfg.URL_MARKET());
-
-        mainPage = new MarketMainPage(driver, wait);
-
-        mobilPhonePage = mainPage
+        mainPage
                 .waitClosePopupWindow()
-                .useMenu();
-        comparePage = mobilPhonePage
+                .clickByButtonCatalog()
+                .clickByButtonTelephone();
+        mobilPhonePage
                 .selectMobileFilter1()
                 .selectMobileFilter2()
                 .usePriceFilter()

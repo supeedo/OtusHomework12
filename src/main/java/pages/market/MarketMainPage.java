@@ -1,6 +1,6 @@
 package pages.market;
 
-import helpers.WaitersHelpClass;
+import utils.WaitersHelpClass;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.TimeoutException;
@@ -8,11 +8,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class MarketMainPage extends WaitersHelpClass {
     private WebDriver driver;
-    private WebDriverWait wait;
     protected static Logger logger = LogManager.getLogger(MarketMainPage.class);
 
 
@@ -27,9 +25,8 @@ public class MarketMainPage extends WaitersHelpClass {
     @FindBy(xpath = MOBILE_PHONE_XPATCH)
     private WebElement mobilPhone;
 
-    public MarketMainPage( WebDriver driver, WebDriverWait wait) {
+    public MarketMainPage( WebDriver driver) {
         this.driver = driver;
-        this.wait = wait;
         PageFactory.initElements(driver, this);
     }
 
@@ -43,10 +40,14 @@ public class MarketMainPage extends WaitersHelpClass {
         return this;
     }
 
-    public MobilPhonePage useMenu() {
-        logger.info("Переходим в раздел Мобильных телефонов");
+    public MarketMainPage clickByButtonCatalog() {
+        logger.info("Переходим в раздел \"Каталог электроники\"");
         useElement(catalogElectronic, driver);
+        return this;
+    }
+    public MobilPhonePage clickByButtonTelephone() {
+        logger.info("Переходим в раздел \"Мобильные телефоны\"");
         useElement(mobilPhone, driver);
-        return new MobilPhonePage(driver, wait);
+        return new MobilPhonePage(driver);
     }
 }
